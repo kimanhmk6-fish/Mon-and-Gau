@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year & 2 Months Anniversary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F5F5DC;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(#E8D9C5 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+        }
+
+        /* MODE SELECTOR */
+        .mode-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #F8C8DC;
+            color: #8B7355;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: #A67C52;
+            color: white;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(139, 115, 85, 0.25);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #D2B48C, #C19A6B);
+            padding: 25px;
+            color: white;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: 'Brush Script MT', cursive;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* SECTIONS */
+        .section {
+            display: none;
+            padding: 30px;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        /* CREATOR SECTION */
+        .creator-controls {
+            background: rgba(245, 245, 220, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group h3 {
+            color: #8B7355;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group h3 i {
+            color: #F8C8DC;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #D2B48C;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #A67C52;
+        }
+
+        .share-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #A67C52;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #8B7355;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(139, 115, 85, 0.3);
+        }
+
+        .btn-secondary {
+            background: #F8C8DC;
+            color: #8B7355;
+        }
+
+        .btn-secondary:hover {
+            background: #f5b5d1;
+            transform: translateY(-3px);
+        }
+
+        .share-info {
+            background: rgba(248, 200, 220, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .share-info.active {
+            display: block;
+            animation: fadeIn 1s ease;
+        }
+
+        .share-link {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            word-break: break-all;
+            border: 2px solid #D2B48C;
+        }
+
+        .copy-btn {
+            background: #7BCCB5;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: #5bbaa0;
+        }
+
+        /* COMMON ELEMENTS */
+        .gift-box-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+
+        .gift-box {
+            width: 100%;
+            height: 100%;
+            background: #D2B48C;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.3);
+            transition: all 0.8s ease;
+            overflow: hidden;
+        }
+
+        .gift-box.opened {
+            transform: rotateY(180deg);
+            opacity: 0.9;
+        }
+
+        .ribbon {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            background: #F8C8DC;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 2;
+            border-radius: 5px;
+        }
+
+        .bow {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #F8C8DC;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+        }
+
+        .bow:before, .bow:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 40px;
+            background: #F8C8DC;
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .bow:before {
+            left: -40px;
+            transform: rotate(-30deg);
+        }
+
+        .bow:after {
+            right: -40px;
+            transform: rotate(30deg);
+        }
+
+        .gift-lid {
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            background: #C19A6B;
+            top: 0;
+            left: 0;
+            border-radius: 15px 15px 0 0;
+            z-index: 1;
+            transition: transform 0.8s ease;
+        }
+
+        .gift-box.opened .gift-lid {
+            transform: rotateX(180deg);
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            border-radius: 15px;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .video-container.active {
+            display: block;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #F8C8DC, #FFD700, #F8C8DC);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #8B7355;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(139, 115, 85, 0.2);
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .message.active {
+            display: block;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .message-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #5D4C3C;
+            margin-bottom: 25px;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        .message-signature {
+            text-align: right;
+            font-style: italic;
+            color: #A67C52;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #D2B48C;
+        }
+
+        .additional-message {
+            background: rgba(248, 200, 220, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #F8C8DC;
+        }
+
+        .additional-message h4 {
+            color: #8B7355;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .additional-text {
+            color: #5D4C3C;
+            line-height: 1.6;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        .additional-date {
+            font-size: 0.9rem;
+            color: #A67C52;
+            text-align: right;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .stickers-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .sticker {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .sticker:nth-child(1) { color: #FF6B8B; animation-delay: 0s; }
+        .sticker:nth-child(2) { color: #FFD700; animation-delay: 0.5s; }
+        .sticker:nth-child(3) { color: #7BCCB5; animation-delay: 1s; }
+        .sticker:nth-child(4) { color: #A67C52; animation-delay: 1.5s; }
+        .sticker:nth-child(5) { color: #F8C8DC; animation-delay: 2s; }
+
+        .countdown {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px auto;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-title {
+            color: #8B7355;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.8rem;
+            color: #A67C52;
+            font-weight: bold;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-value {
+            background: #F8C8DC;
+            padding: 10px 15px;
+            border-radius: 10px;
+            min-width: 70px;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            color: #8B7355;
+        }
+
+        .viewer-note {
+            background: rgba(248, 200, 220, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #8B7355;
+            font-style: italic;
+        }
+
+        .footer {
+            padding: 20px;
+            color: #8B7355;
+            border-top: 1px solid #E8D9C5;
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #F8C8DC; }
+            50% { box-shadow: 0 0 25px #FFD700; }
+            100% { box-shadow: 0 0 10px #F8C8DC; }
+        }
+
+        .gift-box-container:hover .gift-box:not(.opened) {
+            animation: glow 2s infinite;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .mode-selector {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            
+            .mode-btn {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .gift-box-container {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .message-text {
+                font-size: 1.1rem;
+            }
+            
+            .share-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 60px;
+            }
+            
+            .mode-selector {
+                top: 5px;
+                right: 5px;
+                left: 5px;
+                justify-content: center;
+            }
+            
+            .gift-box-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .sticker {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8rem;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .countdown-unit {
+                min-width: 60px;
+            }
+            
+            .countdown-value {
+                padding: 8px 10px;
+                min-width: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- MODE SELECTOR -->
+    <div class="mode-selector">
+        <button class="mode-btn active" id="creatorModeBtn">
+            <i class="fas fa-edit"></i> Kim Anh (Tạo thiệp)
+        </button>
+        <button class="mode-btn" id="viewerModeBtn">
+            <i class="fas fa-eye"></i> Gấu (Xem thiệp)
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1 class="main-title">Happy New Year</h1>
+            <p class="subtitle">Celebrating 2 Months of Love</p>
+        </div>
+
+        <!-- CREATOR SECTION (Kim Anh) -->
+        <div class="section active" id="creatorSection">
+            <div class="creator-controls">
+                <h2><i class="fas fa-magic"></i> Tạo & Chỉnh Sửa Thiệp</h2>
+                <p style="color: #8B7355; margin-bottom: 20px;">Chỉnh sửa lời nhắn và tạo link gửi cho Gấu</p>
+                
+                <div class="control-group">
+                    <h3><i class="fas fa-heart"></i> Lời nhắn chính</h3>
+                    <textarea id="mainMessage" placeholder="Nhập lời nhắn chính của bạn...">Gửi Gấu,
+
+a nghe bùm bùm pháo hoa chưa - úi 2 tháng rồi đó, tính từ cái ngày anh bảo "Để anh giúp chị bớt cô đơn" – câu xin phép ngốc xít nhất trời đất. Thế là từ đó em thành con ong lẽo đẽo bay theo Gấu.
+
+Giờ vẫn hay cùng nhau "Ôm nè!", vẫn đêm đêm chêu chọc anh dù anh mệt xỉu sau giờ học và tập tay, tính cả ngày ông lười kk, vẫn được anh hỏi chuyện ăn uống, nhắc ngủ sớm. Gấu của toy soft xỉu mê lắm ó.
+
+Sắp năm mới rồi, em không chúc gì to tát đâu. Chúc anh đạt thành tựu mới, thi cấp 3, thi lý, vật tay với cả chơi cờ vua top1sv:), giữ sức khỏe tăng mấy múi cơ choa tui gặm ddeee rồi bùn ít lại và nhớ ôm em thiệt chặt khi gặp nhau nhớ. Còn giờ thì... ôm nè.</textarea>
+                </div>
+                
+                <div class="control-group">
+                    <h3><i class="fas fa-plus-circle"></i> Lời nhắn thêm (tùy chọn)</h3>
+                    <textarea id="additionalMessage" placeholder="Viết thêm lời nhắn riêng tư (sẽ hiển thị riêng)..."></textarea>
+                </div>
+                
+                <div class="control-group">
+                    <h3><i class="fas fa-video"></i> Video YouTube (tùy chọn)</h3>
+                    <input type="text" id="videoUrl" placeholder="Dán link YouTube video (ví dụ: https://youtu.be/VIDEO_ID)" 
+                           style="width: 100%; padding: 12px; border: 2px solid #D2B48C; border-radius: 10px; margin-bottom: 10px;">
+                    <small style="color: #8B7355; display: block;">Chỉ cần dán link video YouTube, hệ thống sẽ tự nhận diện</small>
+                </div>
+            </div>
+
+            <!-- XEM TRƯỚC THIỆP -->
+            <div class="preview-area">
+                <h3 style="color: #8B7355; margin-bottom: 20px;">
+                    <i class="fas fa-eye"></i> Xem trước thiệp của bạn
+                </h3>
+                
+                <div class="stickers-container">
+                    <div class="sticker"><i class="fas fa-heart"></i></div>
+                    <div class="sticker"><i class="fas fa-star"></i></div>
+                    <div class="sticker"><i class="fas fa-dove"></i></div>
+                    <div class="sticker"><i class="fas fa-gift"></i></div>
+                    <div class="sticker"><i class="fas fa-champagne-glasses"></i></div>
+                </div>
+
+                <div class="countdown">
+                    <div class="countdown-title">Countdown to our special moment</div>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="previewHours">00</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="previewMinutes">00</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="previewSeconds">00</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HỘP QUÀ -->
+                <div class="gift-box-container" id="previewGiftBox">
+                    <div class="gift-box" id="previewBox">
+                        <div class="ribbon"></div>
+                        <div class="bow"></div>
+                        <div class="gift-lid"></div>
+                        
+                        <div class="video-container" id="previewVideoContainer">
+                            <div class="video-placeholder">
+                                <i class="fas fa-play-circle"></i>
+                                <h3>Video của chúng ta</h3>
+                                <p>(Video sẽ hiển thị tại đây)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LỜI NHẮN XEM TRƯỚC -->
+                <div class="message" id="previewMessage">
+                    <div class="message-text" id="previewMessageText">
+                        <!-- Nội dung sẽ được cập nhật bằng JS -->
+                    </div>
+                    <div class="message-signature">With all my love,<br>Kim Anh</div>
+                    
+                    <div class="additional-message" id="previewAdditionalMessage" style="display: none;">
+                        <h4><i class="fas fa-envelope"></i> Lời nhắn thêm</h4>
+                        <div class="additional-text" id="previewAdditionalText"></div>
+                        <div class="additional-date" id="previewAdditionalDate"></div>
+                    </div>
+                </div>
+
+                <!-- NÚT HÀNH ĐỘNG -->
+                <div class="share-actions">
+                    <button class="btn btn-primary" id="updatePreviewBtn">
+                        <i class="fas fa-sync-alt"></i> Cập nhật xem trước
+                    </button>
+                    <button class="btn btn-primary" id="generateLinkBtn">
+                        <i class="fas fa-link"></i> Tạo link gửi Gấu
+                    </button>
+                    <button class="btn btn-secondary" id="testViewerBtn">
+                        <i class="fas fa-user-check"></i> Thử nghiệm chế độ xem
+                    </button>
+                </div>
+
+                <!-- THÔNG TIN CHIA SẺ -->
+                <div class="share-info" id="shareInfo">
+                    <h3><i class="fas fa-share-alt"></i> Link chia sẻ đã sẵn sàng!</h3>
+                    <p>Gửi link này cho Gấu (người yêu của bạn):</p>
+                    <div class="share-link" id="shareLink">
+                        Đang tạo link...
+                    </div>
+                    <button class="copy-btn" id="copyLinkBtn">
+                        <i class="fas fa-copy"></i> Sao chép link
+                    </button>
+                    <p style="margin-top: 15px; color: #8B7355; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Khi Gấu mở link, anh ấy sẽ chỉ thấy thiệp (không thể chỉnh sửa)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEWER SECTION (Gấu) -->
+        <div class="section" id="viewerSection">
+            <div class="viewer-note">
+                <i class="fas fa-heart"></i> Đây là thiệp Kim Anh gửi riêng cho bạn. Hãy nhấn vào hộp quà để mở!
+            </div>
+            
+            <div class="stickers-container">
+                <div class="sticker"><i class="fas fa-heart"></i></div>
+                <div class="sticker"><i class="fas fa-star"></i></div>
+                <div class="sticker"><i class="fas fa-dove"></i></div>
+                <div class="sticker"><i class="fas fa-gift"></i></div>
+                <div class="sticker"><i class="fas fa-champagne-glasses"></i></div>
+            </div>
+
+            <div class="countdown">
+                <div class="countdown-title">Countdown to our special moment</div>
+                <div class="countdown-timer">
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="viewerHours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="viewerMinutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="viewerSeconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HỘP QUÀ CHO VIEWER -->
+            <div class="gift-box-container" id="viewerGiftBox">
+                <div class="gift-box" id="viewerBox">
+                    <div class="ribbon"></div>
+                    <div class="bow"></div>
+                    <div class="gift-lid"></div>
+                    
+                    <div class="video-container" id="viewerVideoContainer">
+                        <!-- Video sẽ được tải động -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- LỜI NHẮN CHO VIEWER -->
+            <div class="message" id="viewerMessage">
+                <div class="message-text" id="viewerMessageText">
+                    Đang tải lời nhắn...
+                </div>
+                <div class="message-signature">With all my love,<br>Kim Anh</div>
+                
+                <div class="additional-message" id="viewerAdditionalMessage" style="display: none;">
+                    <h4><i class="fas fa-envelope"></i> Lời nhắn thêm từ Kim Anh</h4>
+                    <div class="additional-text" id="viewerAdditionalText"></div>
+                    <div class="additional-date" id="viewerAdditionalDate"></div>
+                </div>
+            </div>
+
+            <div class="viewer-note">
+                <i class="fas fa-lock"></i> Thiệp này chỉ dành riêng cho bạn. Kim Anh đã tạo và gửi nó với tất cả tình yêu.
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            Made with <i class="fas fa-heart" style="color:#FF6B8B;"></i> for my bigdaddy Gấu - Nho Tue
+            <br><span id="currentMode">Bạn đang ở chế độ: Tạo thiệp</span>
+        </div>
+    </div>
+
+    <script>
+        // =================== KHỞI TẠO ===================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra xem có đang ở chế độ viewer từ URL không
+            const urlParams = new URLSearchParams(window.location.search);
+            const cardId = urlParams.get('card');
+            
+            if (cardId) {
+                // Đang ở chế độ viewer (link chia sẻ)
+                loadCardFromShare(cardId);
+                viewerModeBtn.click(); // Tự động chuyển sang chế độ viewer
+            }
+        });
+        
+        // =================== QUẢN LÝ CHẾ ĐỘ ===================
+        const creatorModeBtn = document.getElementById('creatorModeBtn');
+        const viewerModeBtn = document.getElementById('viewerModeBtn');
+        const creatorSection = document.getElementById('creatorSection');
+        const viewerSection = document.getElementById('viewerSection');
+        const currentMode = document.getElementById('currentMode');
+        
+        creatorModeBtn.addEventListener('click', function() {
+            setActiveMode('creator');
+        });
+        
+        viewerModeBtn.addEventListener('click', function() {
+            setActiveMode('viewer');
+        });
+        
+        function setActiveMode(mode) {
+            if (mode === 'creator') {
+                creatorModeBtn.classList.add('active');
+                viewerModeBtn.classList.remove('active');
+                creatorSection.classList.add('active');
+                viewerSection.classList.remove('active');
+                currentMode.textContent = "Bạn đang ở chế độ: Tạo thiệp";
+                updatePreview(); // Cập nhật xem trước
+            } else {
+                viewerModeBtn.classList.add('active');
+                creatorModeBtn.classList.remove('active');
+                viewerSection.classList.add('active');
+                creatorSection.classList.remove('active');
+                currentMode.textContent = "Bạn đang ở chế độ: Xem thiệp";
+                
+                // Nếu không có cardId từ URL, hiển thị thông báo
+                const urlParams = new URLSearchParams(window.location.search);
+                if (!urlParams.get('card')) {
+                    loadDemoCard(); // Tải demo cho chế độ xem thử
+                }
+            }
+        }
+        
+        // =================== CHẾ ĐỘ CREATOR ===================
+        // Cập nhật xem trước
+        const updatePreviewBtn = document.getElementById('updatePreviewBtn');
+        const previewMessageText = document.getElementById('previewMessageText');
+        const previewAdditionalMessage = document.getElementById('previewAdditionalMessage');
+        const previewAdditionalText = document.getElementById('previewAdditionalText');
+        const previewAdditionalDate = document.getElementById('previewAdditionalDate');
+        
+        updatePreviewBtn.addEventListener('click', updatePreview);
+        
+        function updatePreview() {
+            // Cập nhật lời nhắn chính
+            const mainMessage = document.getElementById('mainMessage').value;
+            previewMessageText.textContent = mainMessage;
+            document.getElementById('previewMessage').classList.add('active');
+            
+            // Cập nhật lời nhắn thêm
+            const additionalMessage = document.getElementById('additionalMessage').value;
+            if (additionalMessage.trim()) {
+                previewAdditionalText.textContent = additionalMessage;
+                previewAdditionalDate.textContent = `Thời gian: ${new Date().toLocaleString('vi-VN')}`;
+                previewAdditionalMessage.style.display = 'block';
+            } else {
+                previewAdditionalMessage.style.display = 'none';
+            }
+            
+            // Cập nhật video
+            const videoUrl = document.getElementById('videoUrl').value;
+            updateVideoPreview(videoUrl);
+            
+            // Hiệu ứng
+            updatePreviewBtn.innerHTML = '<i class="fas fa-check"></i> Đã cập nhật';
+            updatePreviewBtn.style.backgroundColor = '#7BCCB5';
+            
+            setTimeout(() => {
+                updatePreviewBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Cập nhật xem trước';
+                updatePreviewBtn.style.backgroundColor = '';
+            }, 2000);
+        }
+        
+        // Cập nhật video preview
+        function updateVideoPreview(videoUrl) {
+            const videoContainer = document.getElementById('previewVideoContainer');
+            
+            if (videoUrl && videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+                // Lấy video ID từ URL YouTube
+                let videoId = '';
+                if (videoUrl.includes('youtube.com/watch?v=')) {
+                    videoId = videoUrl.split('v=')[1];
+                    const ampersandPosition = videoId.indexOf('&');
+                    if (ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                } else if (videoUrl.includes('youtu.be/')) {
+                    videoId = videoUrl.split('youtu.be/')[1];
+                }
+                
+                if (videoId) {
+                    videoContainer.innerHTML = `
+                        <div class="video-wrapper">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&showinfo=0" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    `;
+                } else {
+                    videoContainer.innerHTML = `
+                        <div class="video-placeholder">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>Link YouTube không hợp lệ</h3>
+                            <p>Vui lòng kiểm tra lại link</p>
+                        </div>
+                    `;
+                }
+            } else if (videoUrl.trim()) {
+                videoContainer.innerHTML = `
+                    <div class="video-placeholder">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>Chỉ hỗ trợ link YouTube</h3>
+                        <p>Vui lòng dán link YouTube</p>
+                    </div>
+                `;
+            } else {
+                videoContainer.innerHTML = `
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <h3>Video của chúng ta</h3>
+                        <p>(Chưa có video. Thêm link YouTube bên trên)</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Tạo link chia sẻ
+        const generateLinkBtn = document.getElementById('generateLinkBtn');
+        const shareInfo = document.getElementById('shareInfo');
+        const shareLink = document.getElementById('shareLink');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        
+        generateLinkBtn.addEventListener('click', function() {
+            const mainMessage = document.getElementById('mainMessage').value.trim();
+            const additionalMessage = document.getElementById('additionalMessage').value.trim();
+            const videoUrl = document.getElementById('videoUrl').value.trim();
+            
+            if (!mainMessage) {
+                alert('Vui lòng nhập lời nhắn chính trước khi tạo link!');
+                return;
+            }
+            
+            // Tạo ID duy nhất cho thiệp
+            const cardId = 'LOVE_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            // Chuẩn bị dữ liệu thiệp
+            const cardData = {
+                id: cardId,
+                sender: 'Kim Anh',
+                mainMessage: mainMessage,
+                additionalMessage: additionalMessage,
+                videoUrl: videoUrl,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            // Lưu vào localStorage (trong thực tế sẽ lưu lên server)
+            localStorage.setItem(cardId, JSON.stringify(cardData));
+            
+            // Tạo link chia sẻ
+            const currentUrl = window.location.href.split('?')[0];
+            const shareUrl = `${currentUrl}?card=${cardId}&mode=view`;
+            
+            shareLink.textContent = shareUrl;
+            shareInfo.classList.add('active');
+            shareInfo.scrollIntoView({ behavior: 'smooth' });
+            
+            // Cập nhật nút
+            generateLinkBtn.innerHTML = '<i class="fas fa-check"></i> Đã tạo link';
+            generateLinkBtn.style.backgroundColor = '#7BCCB5';
+            
+            setTimeout(() => {
+                generateLinkBtn.innerHTML = '<i class="fas fa-link"></i> Tạo link gửi Gấu';
+                generateLinkBtn.style.backgroundColor = '';
+            }, 3000);
+        });
+        
+        // Sao chép link
+        copyLinkBtn.addEventListener('click', function() {
+            const textToCopy = shareLink.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyLinkBtn.innerHTML = '<i class="fas fa-check"></i> Đã sao chép!';
+                copyLinkBtn.style.backgroundColor = '#5bbaa0';
+                
+                setTimeout(() => {
+                    copyLinkBtn.innerHTML = '<i class="fas fa-copy"></i> Sao chép link';
+                    copyLinkBtn.style.backgroundColor = '';
+                }, 3000);
+            });
+        });
+        
+        // Nút thử nghiệm chế độ xem
+        const testViewerBtn = document.getElementById('testViewerBtn');
+        testViewerBtn.addEventListener('click', function() {
+            // Lưu dữ liệu hiện tại vào bản demo
+            const mainMessage = document.getElementById('mainMessage').value;
+            const additionalMessage = document.getElementById('additionalMessage').value;
+            const videoUrl = document.getElementById('videoUrl').value;
+            
+            const demoData = {
+                mainMessage: mainMessage || "Gửi Gấu... (đây là bản demo)",
+                additionalMessage: additionalMessage,
+                videoUrl: videoUrl
+            };
+            
+            localStorage.setItem('DEMO_CARD', JSON.stringify(demoData));
+            
+            // Chuyển sang chế độ viewer
+            setActiveMode('viewer');
+            loadDemoCard();
+        });
+        
+        // =================== CHẾ ĐỘ VIEWER ===================
+        // Tải thiệp từ link chia sẻ
+        function loadCardFromShare(cardId) {
+            const cardData = JSON.parse(localStorage.getItem(cardId));
+            
+            if (!cardData) {
+                // Nếu không tìm thấy, hiển thị thông báo
+                document.getElementById('viewerMessageText').textContent = 
+                    "Thiệp không tồn tại hoặc đã bị xóa. Vui lòng kiểm tra lại link.";
+                return;
+            }
+            
+            // Hiển thị dữ liệu thiệp
+            displayCardData(cardData);
+        }
+        
+        // Tải demo cho chế độ xem thử
+        function loadDemoCard() {
+            const demoData = JSON.parse(localStorage.getItem('DEMO_CARD')) || {
+                mainMessage: "Gửi Gấu,\n\nĐây là bản xem thử thiệp. Khi bạn tạo link và gửi cho Gấu, anh ấy sẽ thấy nội dung thực tế bạn đã nhập.",
+                additionalMessage: "Lời nhắn thêm sẽ hiển thị tại đây nếu bạn có viết thêm.",
+                videoUrl: ""
+            };
+            
+            displayCardData(demoData);
+        }
+        
+        // Hiển thị dữ liệu thiệp
+        function displayCardData(cardData) {
+            // Hiển thị lời nhắn chính
+            document.getElementById('viewerMessageText').textContent = cardData.mainMessage || cardData.message;
+            document.getElementById('viewerMessage').classList.add('active');
+            
+            // Hiển thị lời nhắn thêm
+            if (cardData.additionalMessage && cardData.additionalMessage.trim()) {
+                document.getElementById('viewerAdditionalText').textContent = cardData.additionalMessage;
+                document.getElementById('viewerAdditionalDate').textContent = 
+                    `Thời gian: ${new Date(cardData.updatedAt || Date.now()).toLocaleString('vi-VN')}`;
+                document.getElementById('viewerAdditionalMessage').style.display = 'block';
+            } else {
+                document.getElementById('viewerAdditionalMessage').style.display = 'none';
+            }
+            
+            // Hiển thị video
+            if (cardData.videoUrl && (cardData.videoUrl.includes('youtube.com') || cardData.videoUrl.includes('youtu.be'))) {
+                let videoId = '';
+                if (cardData.videoUrl.includes('youtube.com/watch?v=')) {
+                    videoId = cardData.videoUrl.split('v=')[1];
+                    const ampersandPosition = videoId.indexOf('&');
+                    if (ampersandPosition !== -1) {
+                        videoId = videoId.substring(0, ampersandPosition);
+                    }
+                } else if (cardData.videoUrl.includes('youtu.be/')) {
+                    videoId = cardData.videoUrl.split('youtu.be/')[1];
+                }
+                
+                if (videoId) {
+                    document.getElementById('viewerVideoContainer').innerHTML = `
+                        <div class="video-wrapper">
+                            <iframe 
+                                src="https://www.youtube.com/embed/${videoId}?autoplay=0&controls=1&showinfo=0" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Tự động mở hộp quà sau 1 giây
+            setTimeout(() => {
+                document.getElementById('viewerGiftBox').click();
+            }, 1000);
+        }
+        
+        // =================== XỬ LÝ HỘP QUÀ ===================
+        // Hộp quà preview (creator)
+        const previewGiftBox = document.getElementById('previewGiftBox');
+        const previewBox = document.getElementById('previewBox');
+        const previewVideoContainer = document.getElementById('previewVideoContainer');
+        
+        previewGiftBox.addEventListener('click', function() {
+            if (!previewBox.classList.contains('opened')) {
+                previewBox.classList.add('opened');
+                
+                setTimeout(() => {
+                    previewVideoContainer.classList.add('active');
+                }, 800);
+                
+                setTimeout(() => {
+                    document.getElementById('previewMessage').scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+                
+                playSound();
+            }
+        });
+        
+        // Hộp quà viewer
+        const viewerGiftBox = document.getElementById('viewerGiftBox');
+        const viewerBox = document.getElementById('viewerBox');
+        const viewerVideoContainer = document.getElementById('viewerVideoContainer');
+        
+        viewerGiftBox.addEventListener('click', function() {
+            if (!viewerBox.classList.contains('opened')) {
+                viewerBox.classList.add('opened');
+                
+                setTimeout(() => {
+                    viewerVideoContainer.classList.add('active');
+                }, 800);
+                
+                setTimeout(() => {
+                    document.getElementById('viewerMessage').scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+                
+                playSound();
+            }
+        });
+        
+        // =================== TIẾNG CHUÔNG ===================
+        function playSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.2);
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.4);
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.8);
+            } catch (e) {
+                console.log("Không thể phát âm thanh");
+            }
+        }
+        
+        // =================== ĐỒNG HỒ ĐẾM NGƯỢC ===================
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            
+            let targetYear = currentYear;
+            const newYearEve = new Date(currentYear, 11, 31, 23, 59, 59);
+            
+            if (now > newYearEve) {
+                targetYear = currentYear + 1;
+            }
+            
+            const targetDate = new Date(targetYear, 11, 31, 23, 59, 59);
+            const timeDifference = targetDate - now;
+            
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            
+            // Cập nhật cho preview
+            document.getElementById('previewHours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('previewMinutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('previewSeconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Cập nhật cho viewer
+            document.getElementById('viewerHours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('viewerMinutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('viewerSeconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Cập nhật đồng hồ mỗi giây
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Gọi ngay lần đầu
+        
+        // =================== KHỞI TẠO BAN ĐẦU ===================
+        updatePreview(); // Cập nhật xem trước ban đầu
+    </script>
+</body>
+</html>
